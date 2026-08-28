@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://lbyache.github.io',
-  base: '/cv-portfolio',
+  base: '/portfolio-cv',
   integrations: [mdx()],
   vite: {
     plugins: [tailwindcss()]
