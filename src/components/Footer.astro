@@ -1,0 +1,62 @@
+---
+import { url } from '../utils/paths';
+import { cvData } from '../data/cv';
+---
+
+<footer class="footer-dark-block no-print border-t border-[var(--border-color)] bg-[var(--bg-surface)] py-14 mt-16 transition-colors duration-200">
+  <div class="container">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
+      <div>
+        <div class="section-prompt mb-3">contacto_directo/</div>
+        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-[var(--text-primary)] mb-3 leading-snug">
+          ¿Tienes un proyecto, propuesta laboral o consulta?
+        </h2>
+        <p class="text-sm text-[var(--text-secondary)] mb-6 max-w-md">
+          Abierta a roles en desarrollo backend (.NET / C#), desarrollo mobile (iOS / Swift), docencia tecnológica y consultoría LegalTech & IA.
+        </p>
+        <a 
+          href={`mailto:${cvData.email}`} 
+          class="font-mono text-base font-semibold text-[var(--text-primary)] border-b-2 border-[var(--text-primary)] pb-0.5 hover:opacity-75 transition-opacity inline-flex items-center gap-2"
+        >
+          {cvData.email} ↗
+        </a>
+      </div>
+
+      <div class="flex flex-col justify-between">
+        <div>
+          <div class="section-prompt mb-3">navegacion_rapida/</div>
+          <div class="grid grid-cols-2 gap-2 text-sm font-mono">
+            <a href={url('/')} class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] py-1">[01. INICIO]</a>
+            <a href={url('/cv')} class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] py-1">[02. CV IMPRIMIBLE]</a>
+            <a href={url('/blog')} class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] py-1">[03. BLOG]</a>
+            <a href={cvData.github} target="_blank" rel="noopener noreferrer" class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] py-1">[04. GITHUB ↗]</a>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-4 border-t border-[var(--border-color)] flex flex-wrap gap-4 text-xs font-mono text-[var(--text-muted)]">
+          <span class="dashed-pill">#C#/.NET</span>
+          <span class="dashed-pill">#iOS/SwiftUI</span>
+          <span class="dashed-pill">#LegalTech</span>
+          <span class="dashed-pill">#Voluntariado MeT</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div class="pt-8 border-t border-[var(--border-color)] flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[var(--text-muted)] font-mono">
+      <div>
+        <span class="font-bold text-[var(--text-primary)]">{cvData.name}</span> © {new Date().getFullYear()} • CABA, Argentina
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href={cvData.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-[var(--text-primary)]">LinkedIn</a>
+        <span>•</span>
+        <a href={cvData.github} target="_blank" rel="noopener noreferrer" class="hover:text-[var(--text-primary)]">GitHub</a>
+        <span>•</span>
+        <a href={`mailto:${cvData.email}`} class="hover:text-[var(--text-primary)]">Email</a>
+        <span>•</span>
+        <a href={url('/cv')} class="hover:text-[var(--text-primary)]">PDF</a>
+      </div>
+    </div>
+  </div>
+</footer>

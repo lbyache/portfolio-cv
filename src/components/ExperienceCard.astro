@@ -1,0 +1,45 @@
+---
+import type { ExperienceItem } from '../data/cv';
+
+interface Props {
+  item: ExperienceItem;
+  showTimelineDot?: boolean;
+}
+
+const { item, showTimelineDot = false } = Astro.props;
+---
+
+<div class={`break-avoid ${showTimelineDot ? 'timeline-item' : 'border-b border-[var(--border-color)] pb-6 mb-6 last:border-b-0 last:pb-0 last:mb-0'}`}>
+  {showTimelineDot && <div class="timeline-dot"></div>}
+
+  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1.5">
+    <div>
+      <h3 class="font-sans font-bold text-base sm:text-lg text-[var(--text-primary)] leading-tight">
+        {item.role}
+      </h3>
+      <div class="font-medium text-sm text-[var(--text-secondary)] mt-0.5">
+        <span class="font-semibold text-[var(--text-primary)]">{item.company}</span>
+        {item.location && <span class="text-xs text-[var(--text-muted)] font-mono ml-2">({item.location})</span>}
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2 mt-1 sm:mt-0">
+      {item.tag && (
+        <span class="badge text-xs hidden md:inline-block">
+          {item.tag}
+        </span>
+      )}
+      <span class="font-mono text-xs text-[var(--text-muted)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border-color)]">
+        {item.period}
+      </span>
+    </div>
+  </div>
+
+  <ul class="mt-2.5 space-y-1.5 list-disc list-outside pl-4 text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+    {item.bullets.map((bullet) => (
+      <li class="pl-1">
+        {bullet}
+      </li>
+    ))}
+  </ul>
+</div>

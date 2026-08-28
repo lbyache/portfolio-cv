@@ -1,0 +1,18 @@
+---
+interface Props {
+  name: string;
+  variant?: 'mono' | 'outline' | 'subtle';
+}
+
+const { name, variant = 'subtle' } = Astro.props;
+---
+
+<span class={`inline-flex items-center text-xs font-mono px-2.5 py-1 rounded transition-colors ${
+  variant === 'outline' 
+    ? 'bg-transparent text-[var(--text-primary)] border border-[var(--border-color)]' 
+    : variant === 'mono'
+    ? 'bg-[var(--text-primary)] text-[var(--bg-primary)]'
+    : 'bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-color)]'
+}`}>
+  {name}
+</span>

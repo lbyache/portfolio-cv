@@ -1,0 +1,26 @@
+---
+import type { EducationItem } from '../data/cv';
+
+interface Props {
+  item: EducationItem;
+}
+
+const { item } = Astro.props;
+---
+
+<div class="break-avoid border-b border-[var(--border-color)] pb-4 mb-4 last:border-b-0 last:pb-0 last:mb-0">
+  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+    <div>
+      <h3 class="font-sans font-bold text-sm sm:text-base text-[var(--text-primary)]">
+        {item.degree}
+      </h3>
+      <p class="text-xs sm:text-sm text-[var(--text-secondary)] mt-0.5">
+        {item.institution}
+      </p>
+    </div>
+
+    <span class="font-mono text-xs text-[var(--text-muted)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border-color)] self-start sm:self-auto">
+      {item.period}
+    </span>
+  </div>
+</div>

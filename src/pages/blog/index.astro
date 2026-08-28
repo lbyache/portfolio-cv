@@ -1,0 +1,109 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { url } from '../../utils/paths';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Collect unique tags
+const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags)));
+---
+
+<Layout 
+  title="Blog & Reflexiones — Laura Belen Yachelini" 
+  description="Ensayos y análisis sobre Inteligencia Artificial, Ética en Software, Arquitectura y LegalTech por Laura Belen Yachelini."
+>
+  <div class="mb-12">
+    <div class="section-prompt">articulos_y_ensayos/</div>
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[var(--text-primary)] mb-3">
+      Reflexiones &amp; Ensayos Tecnológicos
+    </h1>
+    <p class="text-base sm:text-lg text-[var(--text-secondary)] max-w-2xl">
+      Análisis sobre la intersección entre ingeniería de software, marcos normativos, ética en algoritmos e Inteligencia Artificial.
+    </p>
+  </div>
+
+  <!-- TAG FILTER BUTTONS -->
+  {allTags.length > 0 && (
+    <div class="flex flex-wrap gap-2 mb-10 items-center no-print font-mono text-xs">
+      <span class="text-[var(--text-muted)] font-semibold mr-1">Filtrar por:</span>
+      <button class="btn btn-sm tag-filter-btn cursor-pointer" data-tag="all">
+        Todos ({posts.length})
+      </button>
+      {allTags.map(tag => (
+        <button class="btn btn-outline btn-sm tag-filter-btn cursor-pointer" data-tag={tag}>
+          #{tag}
+        </button>
+      ))}
+    </div>
+  )}
+
+  <!-- BLOG POSTS LIST -->
+  <div class="space-y-6" id="posts-container">
+    {sortedPosts.map(post => (
+      <article 
+        class="card card-hover post-card" 
+        data-tags={JSON.stringify(post.data.tags)}
+      >
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+          <div class="flex flex-wrap gap-1.5">
+            {post.data.tags.map(tag => (
+              <span class="badge text-[11px]">#{tag}</span>
+            ))}
+          </div>
+          <span class="font-mono text-xs text-[var(--text-muted)]">
+            {new Date(post.data.pubDate).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </span>
+        </div>
+
+        <h2 class="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)] mb-3 leading-snug">
+          <a href={url(`/blog/${post.id}`)} class="text-inherit no-underline hover:underline">
+            {post.data.title}
+          </a>
+        </h2>
+
+        <p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed mb-6">
+          {post.data.description}
+        </p>
+
+        <div class="flex justify-between items-center pt-4 border-t border-[var(--border-color)] text-xs font-mono text-[var(--text-muted)]">
+          <span>Por {post.data.author}</span>
+          <a href={url(`/blog/${post.id}`)} class="font-bold text-[var(--text-primary)] hover:underline inline-flex items-center gap-1">
+            [leer_ensayo_completo] →
+          </a>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.tag-filter-btn');
+    const cards = document.querySelectorAll('.post-card');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selectedTag = btn.getAttribute('data-tag');
+
+        buttons.forEach(b => {
+          b.classList.remove('bg-[var(--text-primary)]', 'text-[var(--bg-primary)]');
+          b.classList.add('btn-outline');
+        });
+        btn.classList.remove('btn-outline');
+
+        cards.forEach(card => {
+          if (selectedTag === 'all') {
+            (card as HTMLElement).style.display = 'block';
+          } else {
+            const cardTags = JSON.parse(card.getAttribute('data-tags') || '[]');
+            if (cardTags.includes(selectedTag)) {
+              (card as HTMLElement).style.display = 'block';
+            } else {
+              (card as HTMLElement).style.display = 'none';
+            }
+          }
+        });
+      });
+    });
+  </script>
+</Layout>

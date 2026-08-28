@@ -1,0 +1,48 @@
+---
+import type { ProjectItem } from '../data/cv';
+
+interface Props {
+  project: ProjectItem;
+}
+
+const { project } = Astro.props;
+---
+
+<article class="card card-hover flex flex-col justify-between h-full group">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="badge text-xs font-semibold">
+        {project.category}
+      </span>
+      <a 
+        href={project.github} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="font-mono text-xs text-[var(--text-muted)] group-hover:text-[var(--text-primary)] transition-colors inline-flex items-center gap-1"
+        title="Ver repositorio en GitHub"
+      >
+        GitHub ↗
+      </a>
+    </div>
+
+    <h3 class="font-sans font-bold text-lg text-[var(--text-primary)] mb-2 group-hover:underline decoration-1 underline-offset-4">
+      <a href={project.github} target="_blank" rel="noopener noreferrer" class="text-inherit no-underline">
+        {project.title}
+      </a>
+    </h3>
+
+    <p class="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+      {project.description}
+    </p>
+  </div>
+
+  <div>
+    <div class="flex flex-wrap gap-1.5 pt-3 border-t border-[var(--border-color)]">
+      {project.tech.map((t) => (
+        <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-color)]">
+          {t}
+        </span>
+      ))}
+    </div>
+  </div>
+</article>

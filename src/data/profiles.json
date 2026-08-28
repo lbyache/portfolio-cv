@@ -1,0 +1,141 @@
+{
+  "default": {
+    "name": "Laura Yachelini",
+    "title": "Software Developer — C# .NET & iOS (Swift / SwiftUI)",
+    "email": "lbyachelini@gmail.com",
+    "linkedin": "linkedin.com/in/laurayachelini",
+    "github": "github.com/lbyachelini",
+    "photo": "/laura_yachelini.png",
+    "location": "Buenos Aires, Argentina",
+    "summary": "Desarrolladora de Software y Analista de Sistemas con experiencia en backend con C#/.NET, arquitectura de software y automatización. En constante evolución técnica, me encuentro profundizando e incursionando activamente en el desarrollo nativo para iOS (Swift, SwiftUI). Experiencia en docencia en desarrollo web y colaborando activamente en voluntariado de Mujeres en Tecnologia (MeT).",
+    "skills": [
+      "C# / .NET",
+      "Swift / SwiftUI",
+      "iOS Development",
+      "Xcode",
+      "JavaScript / Node.js",
+      "REST APIs",
+      "SQL",
+      "Python",
+      "Prompt Engineering",
+      "n8n & Power Platform",
+      "Metodologías Ágiles / Scrum",
+      "Git / GitHub",
+      "Voluntariado MeT (Mujeres en Tecnología)"
+    ],
+    "experience": [
+      {
+        "company": "Axoft Argentina",
+        "title": "Desarrolladora C# .NET",
+        "date": "2025 - Presente",
+        "location": "Buenos Aires",
+        "bullets": [
+          "Desarrollo y mantenimiento de módulos críticos para software de gestión empresarial utilizando C# y .NET, reduciendo incidentes en producción en un 30%.",
+          "Optimización de consultas SQL y refactorización de código heredado, mejorando tiempos de respuesta hasta un 40%.",
+          "Implementación de requerimientos bajo metodologías ágiles (Scrum) participando en todo el ciclo de vida del software."
+        ]
+      },
+      {
+        "company": "Escuela de Arte Multimedial Da Vinci",
+        "title": "Docente de Desarrollo Web",
+        "date": "2024 - Presente",
+        "location": "Buenos Aires",
+        "bullets": [
+          "Instrucción técnica en desarrollo web full-stack (HTML/CSS, JavaScript, Bootstrap) para más de 40 estudiantes con tasas de aprobación superiores al 85%.",
+          "Diseño de proyectos prácticos enfocados en trabajo en equipo, control de versiones con GitHub y buenas prácticas de código."
+        ]
+      },
+      {
+        "company": "Mujeres en Tecnología (MeT)",
+        "title": "Voluntaria & Colaboradora Activa",
+        "date": "2024 - Presente",
+        "location": "Argentina",
+        "bullets": [
+          "Colaboración en iniciativas comunitarias para impulsar y potenciar la participación activa de mujeres y géneros subrepresentados en la industria de tecnología."
+        ]
+      },
+      {
+        "company": "Freelance",
+        "title": "Desarrolladora de Software & Automatizaciones",
+        "date": "2024 - 2025",
+        "location": "Remoto",
+        "bullets": [
+          "Desarrollo de aplicaciones web adaptables e integración de backend para clientes corporativos.",
+          "Construcción de flujos de automatización e integración de APIs REST para optimizar procesos operativos."
+        ]
+      },
+      {
+        "company": "DHL Express",
+        "title": "Legal Tech Counsel & Lead de Automatización",
+        "date": "2018 - 2023",
+        "location": "Buenos Aires",
+        "bullets": [
+          "Liderazgo de la transformación digital del área legal diseñando e implementando soluciones con Microsoft Power Platform.",
+          "Reducción del 60% en tareas manuales repetitivas mediante flujos de aprobación automatizados y gestión inteligente de documentos.",
+          "Traducción de requerimientos operativos y regulatorios en especificaciones técnicas de software para equipos de IT."
+        ]
+      },
+      {
+        "company": "Estudio Jurídico Tróccoli",
+        "title": "Abogada Junior / Analista",
+        "date": "2015 - 2017",
+        "location": "Buenos Aires",
+        "bullets": [
+          "Análisis estructurado de casos, seguimiento de procesos y documentación rigurosa."
+        ]
+      }
+    ],
+    "education": [
+      {
+        "institution": "Escuela de Arte Multimedial Da Vinci",
+        "degree": "Analista de Sistemas",
+        "date": "2023 - Presente"
+      },
+      {
+        "institution": "Especialización & Proyectos Autónomos",
+        "degree": "Desarrollo Nativo iOS (Swift, SwiftUI)",
+        "date": "2025 - Presente"
+      },
+      {
+        "institution": "Universidad Católica Argentina (UCA)",
+        "degree": "Abogacía (Título Grado)",
+        "date": "2012 - 2017"
+      },
+      {
+        "institution": "CILSA",
+        "degree": "Bootcamp Fullstack",
+        "date": "2024"
+      },
+      {
+        "institution": "Codo a Codo",
+        "degree": "Curso Fullstack Node.js",
+        "date": "2024"
+      }
+    ],
+    "certifications": [
+      "Desarrollo iOS Nativo con Swift & SwiftUI (En curso / Proyectos)",
+      "Voluntaria Mujeres en Tecnología (MeT)",
+      "Prompt Engineering - Especialización en IA Generativa",
+      "Bootcamp Fullstack - CILSA",
+      "Fullstack Node.js - Codo a Codo"
+    ],
+    "languages": [
+      "Español (Nativo)",
+      "Inglés (Avanzado técnico - lectura y escritura)"
+    ]
+  },
+  "profiles": [
+    {
+      "id": "sintesis",
+      "label": "Perfil Software Developer & iOS (Principal)"
+    },
+    {
+      "id": "v3-ai",
+      "label": "Automation & AI Engineer"
+    },
+    {
+      "id": "v4-legaltech",
+      "label": "LegalTech Consultant & Analyst"
+    }
+  ]
+}

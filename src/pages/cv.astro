@@ -1,0 +1,243 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { cvData } from '../data/cv';
+import { url } from '../utils/paths';
+import ExperienceCard from '../components/ExperienceCard.astro';
+import EducationCard from '../components/EducationCard.astro';
+---
+
+<Layout 
+  title={`CV — ${cvData.name} (${cvData.title})`} 
+  description={`Currículum Vitae oficial de ${cvData.name}. Perfil dual en Desarrollo de Software (.NET, C#, iOS) y Análisis de Sistemas / LegalTech.`}
+>
+  <!-- TOP TOOLBAR (NO-PRINT) -->
+  <div class="no-print mb-8 p-4 sm:p-5 rounded-lg border border-[var(--border-color)] bg-[var(--bg-surface)] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-sm">
+    <div>
+      <div class="flex items-center gap-2">
+        <span class="font-mono text-sm font-bold text-[var(--text-primary)]">&gt; curriculum_vitae.pdf</span>
+        <span class="badge text-xs">ATS-Friendly & Imprimible</span>
+      </div>
+      <p class="text-xs sm:text-sm text-[var(--text-secondary)] mt-1">
+        Versión oficial estructurada del CV. Puedes guardarlo en PDF haciendo clic en el botón de impresión.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap gap-2.5 items-center">
+      <button 
+        id="print-btn" 
+        class="btn text-xs sm:text-sm"
+        onclick="window.print()"
+      >
+        <span>🖨️</span>
+        <span>Imprimir / Guardar PDF</span>
+      </button>
+
+      <a 
+        href={url('/')} 
+        class="btn btn-outline text-xs sm:text-sm"
+      >
+        ← Volver
+      </a>
+    </div>
+  </div>
+
+  <!-- PRINTABLE CV DOCUMENT WRAPPER -->
+  <div class="cv-printable-container bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-xl p-6 sm:p-10 lg:p-12 shadow-sm transition-colors">
+    
+    <!-- HEADER BAR: NAME & TITLE -->
+    <header class="border-b-2 border-[var(--text-primary)] pb-6 mb-8">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-extrabold text-[var(--text-primary)] tracking-tight leading-tight">
+            {cvData.name}
+          </h1>
+          <p class="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[var(--text-muted)] uppercase mt-1">
+            {cvData.title}
+          </p>
+        </div>
+
+        <div class="font-mono text-xs text-[var(--text-secondary)] flex flex-col sm:items-end gap-1">
+          <a href={`mailto:${cvData.email}`} class="hover:underline text-inherit">{cvData.email}</a>
+          <a href={cvData.linkedin} target="_blank" rel="noopener noreferrer" class="hover:underline text-inherit">linkedin.com/in/laurayachelini</a>
+          <a href={cvData.github} target="_blank" rel="noopener noreferrer" class="hover:underline text-inherit">github.com/{cvData.githubUsername}</a>
+          <span>{cvData.location}</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- TWO-COLUMN GRID ACCORDING TO PDF SPEC -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+      
+      <!-- LEFT COLUMN (4 COLS): PHOTO, SOBRE MÍ, CONTACTO, HABILIDADES, VOLUNTARIADO -->
+      <aside class="lg:col-span-4 flex flex-col gap-8">
+        
+        <!-- PROFILE PHOTO -->
+        <div class="flex items-center gap-4">
+          <img 
+            src={url(cvData.photo)} 
+            alt={cvData.name} 
+            class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-2 border-[var(--border-color)] shadow-sm"
+          />
+          <div>
+            <span class="badge text-[11px] mb-1">Perfil Activo</span>
+            <p class="font-mono text-xs text-[var(--text-muted)]">C# .NET • iOS • Sistemas</p>
+          </div>
+        </div>
+
+        <!-- SOBRE MÍ -->
+        <section class="break-avoid">
+          <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] border-b border-[var(--border-color)] pb-1.5 mb-3 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-primary)]"></span>
+            Sobre Mí
+          </h2>
+          <p class="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed text-justify">
+            {cvData.summary}
+          </p>
+        </section>
+
+        <!-- CONTACTO DETALLADO -->
+        <section class="break-avoid">
+          <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] border-b border-[var(--border-color)] pb-1.5 mb-3 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-primary)]"></span>
+            Contacto
+          </h2>
+          <ul class="space-y-2 text-xs sm:text-sm font-mono text-[var(--text-secondary)]">
+            <li class="flex items-center gap-2">
+              <span class="text-[var(--text-muted)]">✉</span>
+              <a href={`mailto:${cvData.email}`} class="hover:underline truncate">{cvData.email}</a>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-[var(--text-muted)]">in</span>
+              <a href={cvData.linkedin} target="_blank" rel="noopener noreferrer" class="hover:underline truncate">LinkedIn</a>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-[var(--text-muted)]">git</span>
+              <a href={cvData.github} target="_blank" rel="noopener noreferrer" class="hover:underline truncate">GitHub: @{cvData.githubUsername}</a>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-[var(--text-muted)]">📍</span>
+              <span class="truncate">{cvData.location}</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- HABILIDADES -->
+        <section class="break-avoid">
+          <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] border-b border-[var(--border-color)] pb-1.5 mb-3 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-primary)]"></span>
+            Habilidades
+          </h2>
+          <ul class="space-y-1.5 text-xs sm:text-sm text-[var(--text-secondary)]">
+            {cvData.softSkills.map((skill) => (
+              <li class="flex items-center gap-2">
+                <span class="text-[var(--text-muted)]">•</span>
+                <span>{skill}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <!-- VOLUNTARIADO -->
+        <section class="break-avoid">
+          <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] border-b border-[var(--border-color)] pb-1.5 mb-3 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-primary)]"></span>
+            Voluntariado
+          </h2>
+          {cvData.volunteering.map((v) => (
+            <div class="mb-3 last:mb-0">
+              <div class="flex items-baseline justify-between gap-1">
+                <strong class="text-xs sm:text-sm font-bold text-[var(--text-primary)]">{v.organization}</strong>
+                <span class="font-mono text-[11px] text-[var(--text-muted)]">{v.period}</span>
+              </div>
+              <p class="text-xs text-[var(--text-secondary)] mt-1 leading-relaxed">
+                {v.description}
+              </p>
+            </div>
+          ))}
+        </section>
+
+      </aside>
+
+      <!-- RIGHT COLUMN (8 COLS): EDUCACIÓN, EXPERIENCIA, TECNOLOGÍAS -->
+      <main class="lg:col-span-8 flex flex-col gap-8">
+        
+        <!-- EDUCACIÓN SECTION -->
+        <section class="break-avoid">
+          <h2 class="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)] border-b-2 border-[var(--border-color)] pb-2 mb-5 flex items-center justify-between">
+            <span>Educación</span>
+            <span class="font-mono text-xs text-[var(--text-muted)] font-normal">// Formación académica</span>
+          </h2>
+          <div class="space-y-3">
+            {cvData.education.map((edu) => (
+              <EducationCard item={edu} />
+            ))}
+          </div>
+        </section>
+
+        <!-- EXPERIENCIA SECTION -->
+        <section class="break-avoid">
+          <h2 class="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)] border-b-2 border-[var(--border-color)] pb-2 mb-5 flex items-center justify-between">
+            <span>Experiencia</span>
+            <span class="font-mono text-xs text-[var(--text-muted)] font-normal">// Trayectoria profesional</span>
+          </h2>
+          <div>
+            {cvData.experience.map((exp) => (
+              <ExperienceCard item={exp} />
+            ))}
+          </div>
+        </section>
+
+        <!-- TECNOLOGÍAS SECTION -->
+        <section class="break-avoid">
+          <h2 class="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)] border-b-2 border-[var(--border-color)] pb-2 mb-5 flex items-center justify-between">
+            <span>Tecnologías</span>
+            <span class="font-mono text-xs text-[var(--text-muted)] font-normal">// Stack & Herramientas</span>
+          </h2>
+
+          <div class="space-y-4">
+            <div>
+              <h3 class="font-mono text-xs font-semibold text-[var(--text-muted)] uppercase mb-2">
+                Lenguajes y Frameworks:
+              </h3>
+              <div class="flex flex-wrap gap-1.5">
+                {cvData.technologies.languagesAndFrameworks.map((tech) => (
+                  <span class="font-mono text-xs px-2.5 py-1 rounded bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-color)]">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-mono text-xs font-semibold text-[var(--text-muted)] uppercase mb-2">
+                Herramientas y Plataformas:
+              </h3>
+              <div class="flex flex-wrap gap-1.5">
+                {cvData.technologies.tools.map((tool) => (
+                  <span class="font-mono text-xs px-2.5 py-1 rounded bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-color)]">
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-mono text-xs font-semibold text-[var(--text-muted)] uppercase mb-2">
+                Arquitectura y Metodologías:
+              </h3>
+              <div class="flex flex-wrap gap-1.5">
+                {cvData.technologies.other.map((item) => (
+                  <span class="font-mono text-xs px-2.5 py-1 rounded bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-color)]">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+  </div>
+</Layout>
