@@ -9,96 +9,46 @@ interface Props {
 const { currentPath = '' } = Astro.props;
 ---
 
-<header class="navbar no-print sticky top-0 z-50 backdrop-blur-md bg-[var(--bg-primary)]/85 border-b border-[var(--border-color)] transition-colors duration-200">
-  <div class="container flex items-center justify-between py-3.5 gap-4">
+<header class="navbar no-print sticky top-0 z-50 backdrop-blur-md bg-[var(--bg)]/85 border-b border-[var(--border)] transition-colors duration-150">
+  <div class="content-container flex items-center justify-between py-3">
     
-    <!-- BRAND / LOGO -->
-    <a href={url('/')} class="flex items-center gap-3 group text-[var(--text-primary)] no-underline">
-      <div class="w-8 h-8 rounded-full overflow-hidden border border-[var(--border-color)] group-hover:border-[var(--text-primary)] transition-colors shrink-0">
-        <img src={url(cvData.photo)} alt={cvData.name} class="w-full h-full object-cover" />
-      </div>
-      <div class="flex flex-col">
-        <span class="font-sans font-bold text-sm text-[var(--text-primary)] leading-tight">
-          {cvData.name}
-        </span>
-        <span class="font-sans text-[11px] text-[var(--text-muted)] leading-tight">
-          Software Developer
-        </span>
-      </div>
+    <!-- LEFT: LOGO / NAME -->
+    <a href={url('/')} class="flex items-center gap-2.5 group text-[var(--text)] no-underline">
+      <img 
+        src={url(cvData.photo)} 
+        alt={cvData.name} 
+        class="w-6 h-6 rounded-full object-cover border border-[var(--border)] shrink-0" 
+      />
+      <span class="text-sm font-semibold tracking-tight text-[var(--text)]">
+        {cvData.name}
+      </span>
     </a>
 
-    <!-- MODERN NAV LINKS -->
-    <nav class="hidden md:flex items-center gap-1 bg-[var(--bg-surface)] px-2 py-1 rounded-full border border-[var(--border-color)] shadow-xs">
-      <a 
-        href={url('/#sobre-mi')} 
-        class="text-xs font-semibold px-3 py-1.5 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)] transition-all"
-      >
-        Sobre Mí
-      </a>
-      <a 
-        href={url('/#experiencia')} 
-        class="text-xs font-semibold px-3 py-1.5 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)] transition-all"
-      >
+    <!-- RIGHT: NAVIGATION LINKS & ACTIONS -->
+    <nav class="flex items-center gap-3 sm:gap-4 text-xs font-medium text-[var(--text-secondary)]">
+      <a href="#experiencia" class="hover:text-[var(--text)] transition-colors hidden sm:inline-block">
         Experiencia
       </a>
-      <a 
-        href={url('/#proyectos')} 
-        class="text-xs font-semibold px-3 py-1.5 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)] transition-all"
-      >
+      <a href="#proyectos" class="hover:text-[var(--text)] transition-colors hidden sm:inline-block">
         Proyectos
       </a>
-      <a 
-        href={url('/#skills')} 
-        class="text-xs font-semibold px-3 py-1.5 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)] transition-all"
-      >
-        Stack &amp; Skills
-      </a>
-      <a 
-        href={url('/#educacion')} 
-        class="text-xs font-semibold px-3 py-1.5 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)] transition-all"
-      >
+      <a href="#educacion" class="hover:text-[var(--text)] transition-colors hidden sm:inline-block">
         Educación
       </a>
-      <a 
-        href={cvData.github} 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        class="text-xs font-semibold px-3 py-1.5 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)] transition-all inline-flex items-center gap-1"
-      >
-        GitHub ↗
+      <a href={url('/cv')} class="text-[var(--text)] font-semibold hover:underline">
+        CV (PDF)
       </a>
-    </nav>
 
-    <!-- RIGHT CONTROLS -->
-    <div class="flex items-center gap-2.5">
-      <!-- THEME TOGGLE -->
+      <!-- THEME TOGGLE BUTTON -->
       <button 
         id="theme-toggle-btn" 
-        class="p-2 rounded-lg border border-[var(--border-color)] bg-[var(--bg-surface)] hover:bg-[var(--bg-muted)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer" 
+        class="p-1.5 rounded-md hover:bg-[var(--bg-subtle)] text-[var(--text-muted)] hover:text-[var(--text)] transition-colors cursor-pointer" 
         aria-label="Cambiar tema claro / oscuro"
         title="Cambiar tema"
       >
-        <span id="theme-icon" class="text-sm">◐</span>
+        <span id="theme-icon" class="text-xs">◐</span>
       </button>
-
-      <!-- PRINT / PDF BUTTON -->
-      <a 
-        href={url('/cv')} 
-        class="btn btn-sm hidden sm:inline-flex items-center gap-1.5 py-1.5 px-3.5 text-xs shadow-xs"
-      >
-        <span>📄</span>
-        <span>Ver CV (PDF)</span>
-      </a>
-
-      <!-- CONTACT BUTTON -->
-      <a 
-        href={`mailto:${cvData.email}`} 
-        class="btn btn-outline btn-sm hidden sm:inline-flex items-center gap-1.5 py-1.5 px-3.5 text-xs"
-      >
-        <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
-        <span>Contacto</span>
-      </a>
-    </div>
+    </nav>
 
   </div>
 </header>
