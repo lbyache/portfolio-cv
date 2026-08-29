@@ -12,41 +12,52 @@ const { currentPath = '' } = Astro.props;
 <header class="navbar no-print sticky top-0 z-50 backdrop-blur-md bg-[var(--bg-primary)]/85 border-b border-[var(--border-color)] transition-colors duration-200">
   <div class="container flex items-center justify-between py-3.5 gap-4">
     
-    <!-- BRAND LOGO -->
+    <!-- BRAND / LOGO -->
     <a href={url('/')} class="flex items-center gap-3 group text-[var(--text-primary)] no-underline">
       <div class="w-8 h-8 rounded-full overflow-hidden border border-[var(--border-color)] group-hover:border-[var(--text-primary)] transition-colors shrink-0">
         <img src={url(cvData.photo)} alt={cvData.name} class="w-full h-full object-cover" />
       </div>
-      <span class="font-sans font-bold text-sm sm:text-base text-[var(--text-primary)]">
-        Laura Yachelini
-      </span>
+      <div class="flex flex-col">
+        <span class="font-sans font-bold text-sm text-[var(--text-primary)] leading-tight">
+          {cvData.name}
+        </span>
+        <span class="font-sans text-[11px] text-[var(--text-muted)] leading-tight">
+          Software Developer
+        </span>
+      </div>
     </a>
 
-    <!-- MODERN NAV LINKS (NO BRACKETS) -->
-    <nav class="hidden md:flex items-center gap-1 bg-[var(--bg-surface)] px-2 py-1.5 rounded-full border border-[var(--border-color)] shadow-sm">
+    <!-- MODERN NAV LINKS -->
+    <nav class="hidden md:flex items-center gap-1 bg-[var(--bg-surface)] px-2 py-1 rounded-full border border-[var(--border-color)] shadow-xs">
       <a 
-        href={url('/')} 
-        class={`text-xs font-semibold px-3.5 py-1.5 rounded-full transition-all ${currentPath === '/' || currentPath === '/portfolio-cv/' || currentPath === '/portfolio-cv' ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] shadow-xs' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)]'}`}
+        href={url('/#sobre-mi')} 
+        class="text-xs font-semibold px-3 py-1.5 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)] transition-all"
       >
-        Inicio
+        Sobre Mí
       </a>
       <a 
-        href={url('/cv')} 
-        class={`text-xs font-semibold px-3.5 py-1.5 rounded-full transition-all ${currentPath?.includes('/cv') ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] shadow-xs' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)]'}`}
+        href={url('/#experiencia')} 
+        class="text-xs font-semibold px-3 py-1.5 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)] transition-all"
       >
-        CV &amp; Experiencia
+        Experiencia
       </a>
       <a 
         href={url('/#proyectos')} 
-        class="text-xs font-semibold px-3.5 py-1.5 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)] transition-all"
+        class="text-xs font-semibold px-3 py-1.5 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)] transition-all"
       >
         Proyectos
       </a>
       <a 
-        href={url('/blog')} 
-        class={`text-xs font-semibold px-3.5 py-1.5 rounded-full transition-all ${currentPath?.includes('/blog') ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] shadow-xs' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)]'}`}
+        href={url('/#skills')} 
+        class="text-xs font-semibold px-3 py-1.5 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)] transition-all"
       >
-        Blog
+        Stack &amp; Skills
+      </a>
+      <a 
+        href={url('/#educacion')} 
+        class="text-xs font-semibold px-3 py-1.5 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)] transition-all"
+      >
+        Educación
       </a>
       <a 
         href={cvData.github} 
@@ -58,14 +69,9 @@ const { currentPath = '' } = Astro.props;
       </a>
     </nav>
 
-    <!-- RIGHT CONTROLS: THEME & CONTACT -->
-    <div class="flex items-center gap-2">
-      <!-- MOBILE MENU LINK TO CV -->
-      <a href={url('/cv')} class="md:hidden btn btn-outline btn-sm text-xs py-1.5 px-3">
-        Ver CV
-      </a>
-
-      <!-- THEME SWITCHER -->
+    <!-- RIGHT CONTROLS -->
+    <div class="flex items-center gap-2.5">
+      <!-- THEME TOGGLE -->
       <button 
         id="theme-toggle-btn" 
         class="p-2 rounded-lg border border-[var(--border-color)] bg-[var(--bg-surface)] hover:bg-[var(--bg-muted)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer" 
@@ -75,10 +81,19 @@ const { currentPath = '' } = Astro.props;
         <span id="theme-icon" class="text-sm">◐</span>
       </button>
 
+      <!-- PRINT / PDF BUTTON -->
+      <a 
+        href={url('/cv')} 
+        class="btn btn-sm hidden sm:inline-flex items-center gap-1.5 py-1.5 px-3.5 text-xs shadow-xs"
+      >
+        <span>📄</span>
+        <span>Ver CV (PDF)</span>
+      </a>
+
       <!-- CONTACT BUTTON -->
       <a 
         href={`mailto:${cvData.email}`} 
-        class="btn btn-sm hidden sm:inline-flex items-center gap-2 py-2 px-4 shadow-sm"
+        class="btn btn-outline btn-sm hidden sm:inline-flex items-center gap-1.5 py-1.5 px-3.5 text-xs"
       >
         <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
         <span>Contacto</span>

@@ -1,437 +1,347 @@
 ---
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
 import { cvData } from '../data/cv';
 import { url } from '../utils/paths';
-
-const currentYear = new Date().getFullYear();
+import ProjectCard from '../components/ProjectCard.astro';
+import ExperienceCard from '../components/ExperienceCard.astro';
+import EducationCard from '../components/EducationCard.astro';
 ---
 
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
-    <meta name="generator" content={Astro.generator} />
-    
-    <title>{cvData.name} — {cvData.title}</title>
-    <meta name="description" content={cvData.summary} />
-    <meta name="author" content={cvData.name} />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content={`${cvData.name} — ${cvData.title}`} />
-    <meta property="og:description" content={cvData.summary} />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content={url(cvData.photo)} />
-
-    <!-- Dark Mode Hydration -->
-    <script is:inline>
-      (function() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-          document.documentElement.setAttribute('data-theme', savedTheme);
-        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          document.documentElement.setAttribute('data-theme', 'dark');
-        } else {
-          document.documentElement.setAttribute('data-theme', 'light');
-        }
-      })();
-    </script>
-  </head>
-  <body>
-    
-    <!-- FLOATING TOP TOOLBAR (NO-PRINT) -->
-    <div class="no-print max-w-[960px] mx-auto mb-5 flex flex-wrap items-center justify-between gap-3 px-2">
-      <div class="flex items-center gap-2 text-xs font-semibold text-[var(--text-muted)]">
-        <span>Curriculum Vitae</span>
-        <span>•</span>
-        <span>{cvData.name}</span>
-      </div>
-
-      <div class="flex items-center gap-2">
-        <button 
-          id="theme-btn" 
-          class="cv-btn cv-btn-outline text-xs py-1.5 px-3"
-          aria-label="Cambiar tema"
-        >
-          <span id="theme-icon">◐</span>
-          <span id="theme-text">Modo</span>
-        </button>
-
-        <a 
-          href={cvData.github} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          class="cv-btn cv-btn-outline text-xs py-1.5 px-3"
-        >
-          GitHub ↗
-        </a>
-
-        <a 
-          href={cvData.linkedin} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          class="cv-btn cv-btn-outline text-xs py-1.5 px-3"
-        >
-          LinkedIn ↗
-        </a>
-
-        <button 
-          id="print-btn" 
-          class="cv-btn cv-btn-primary text-xs py-1.5 px-3.5"
-          onclick="window.print()"
-        >
-          <span>📄</span>
-          <span>Descargar PDF</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- MAIN CV DOCUMENT (MATCHING PDF STRUCTURE) -->
-    <main class="cv-paper">
+<Layout 
+  title={`${cvData.name} — ${cvData.title}`} 
+  description={cvData.summary}
+>
+  <!-- HERO SECTION -->
+  <section class="py-10 sm:py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
       
-      <!-- HEADER -->
-      <header class="mb-8">
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-[var(--cv-blue)] tracking-tight">
+      <!-- HERO CONTENT (7 COLS) -->
+      <div class="lg:col-span-7">
+        
+        <!-- AVAILABILITY BADGE -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--bg-surface)] border border-[var(--border-color)] text-xs font-semibold text-[var(--text-secondary)] shadow-xs mb-6">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Disponible para nuevas oportunidades</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[var(--text-primary)] tracking-tight leading-[1.1] mb-4">
           {cvData.name}
         </h1>
-        <p class="text-xs sm:text-sm font-semibold tracking-wider text-[var(--text-muted)] uppercase mt-1">
-          {cvData.title}
+
+        <p class="text-lg sm:text-xl font-bold text-[var(--accent-blue)] mb-6">
+          Desarrollo de Software • Analista de Sistemas • Abogada (UCA)
         </p>
-        <div class="w-full h-[1.5px] bg-[var(--cv-line)] mt-3"></div>
-      </header>
 
-      <!-- 2-COLUMN LAYOUT -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-        
-        <!-- LEFT COLUMN (4 COLS) -->
-        <aside class="md:col-span-5 flex flex-col gap-6">
-          
-          <!-- PHOTO -->
-          <div class="flex justify-center md:justify-start">
-            <img 
-              src={url(cvData.photo)} 
-              alt={cvData.name} 
-              class="w-32 h-32 sm:w-36 sm:h-36 rounded-full object-cover border border-[var(--border-card)] shadow-xs"
-            />
-          </div>
+        <p class="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed mb-8 max-w-xl">
+          {cvData.summary}
+        </p>
 
-          <!-- SOBRE MI -->
-          <section class="break-avoid">
-            <h2 class="cv-section-title">Sobre mi</h2>
-            <p class="text-xs sm:text-[13px] text-[var(--text-secondary)] leading-relaxed text-justify">
-              {cvData.summary}
-            </p>
-          </section>
+        <!-- QUICK CONTACT PILLS -->
+        <div class="flex flex-wrap gap-2.5 mb-8 text-xs font-medium text-[var(--text-secondary)]">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[var(--bg-surface)] border border-[var(--border-color)]">
+            📍 {cvData.location}
+          </span>
+          <a href={`mailto:${cvData.email}`} class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[var(--bg-surface)] border border-[var(--border-color)] hover:text-[var(--text-primary)] hover:border-[var(--accent-blue)] transition-colors">
+            ✉ {cvData.email}
+          </a>
+          <a href={cvData.github} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[var(--bg-surface)] border border-[var(--border-color)] hover:text-[var(--text-primary)] hover:border-[var(--accent-blue)] transition-colors">
+            git github.com/{cvData.githubUsername}
+          </a>
+        </div>
 
-          <!-- CONTACTO -->
-          <section class="break-avoid">
-            <h2 class="cv-section-title">Contacto</h2>
-            <ul class="space-y-2 text-xs sm:text-[13px] text-[var(--text-secondary)]">
-              <li class="flex items-center gap-2">
-                <span class="w-5 text-center font-bold text-[var(--cv-blue)] text-xs">in</span>
-                <a href={cvData.linkedin} target="_blank" rel="noopener noreferrer" class="hover:underline text-[var(--cv-blue)] font-medium">
-                  LinkedIn
-                </a>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="w-5 text-center font-bold text-[var(--cv-blue)] text-xs">git</span>
-                <a href={cvData.github} target="_blank" rel="noopener noreferrer" class="hover:underline text-[var(--cv-blue)] font-medium">
-                  GitHub
-                </a>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="w-5 text-center text-[var(--cv-blue)]">@</span>
-                <a href={`mailto:${cvData.email}`} class="hover:underline">
-                  {cvData.email}
-                </a>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="w-5 text-center text-[var(--cv-blue)]">&lt;/&gt;</span>
-                <a href={`https://${cvData.githubUsername}.github.io/portfolio-cv`} class="hover:underline">
-                  Portfolio
-                </a>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="w-5 text-center text-[var(--cv-blue)]">📍</span>
-                <span>{cvData.location}</span>
-              </li>
-            </ul>
-          </section>
-
-          <!-- HABILIDADES -->
-          <section class="break-avoid">
-            <h2 class="cv-section-title">Habilidades</h2>
-            <ul class="space-y-1.5 text-xs sm:text-[13px] text-[var(--text-secondary)]">
-              {cvData.softSkills.map((skill) => (
-                <li class="flex items-center gap-2">
-                  <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)] shrink-0"></span>
-                  <span>{skill}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <!-- VOLUNTARIADO -->
-          <section class="break-avoid">
-            <h2 class="cv-section-title">Voluntariado</h2>
-            <div>
-              <strong class="block text-xs sm:text-[13px] font-bold text-[var(--text-main)] mb-0.5">
-                MeT (Mujeres en tecnologia)
-              </strong>
-              <p class="text-xs sm:text-[13px] text-[var(--text-secondary)] leading-relaxed">
-                Organización comprometida con impulsar la inclusión y diversidad de género en el ecosistema tecnológico.
-              </p>
-            </div>
-          </section>
-
-        </aside>
-
-        <!-- RIGHT COLUMN (7 COLS) -->
-        <div class="md:col-span-7 flex flex-col gap-6">
-          
-          <!-- EDUCACIÓN -->
-          <section class="break-avoid">
-            <h2 class="cv-section-title">Educación</h2>
-            <div class="space-y-4">
-              
-              <div class="flex items-start gap-2.5">
-                <span class="cv-dot"></span>
-                <div class="flex-1">
-                  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 class="font-bold text-xs sm:text-[13px] text-[var(--text-main)] uppercase">
-                      ANALISTA DE SISTEMAS
-                    </h3>
-                    <span class="text-xs text-[var(--text-muted)] font-medium">2023 - 2026</span>
-                  </div>
-                  <p class="text-xs text-[var(--text-secondary)] mt-0.5">
-                    Escuela de Arte Multimedial Da Vinci
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex items-start gap-2.5">
-                <span class="cv-dot"></span>
-                <div class="flex-1">
-                  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 class="font-bold text-xs sm:text-[13px] text-[var(--text-main)] uppercase">
-                      CURSO FULLSTACK NODE.JS
-                    </h3>
-                    <span class="text-xs text-[var(--text-muted)] font-medium">Febrero 2024</span>
-                  </div>
-                  <p class="text-xs text-[var(--text-secondary)] mt-0.5">
-                    Codo a codo
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex items-start gap-2.5">
-                <span class="cv-dot"></span>
-                <div class="flex-1">
-                  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 class="font-bold text-xs sm:text-[13px] text-[var(--text-main)] uppercase">
-                      BOOTCAMP FULLSTACK
-                    </h3>
-                    <span class="text-xs text-[var(--text-muted)] font-medium">Agosto 2024</span>
-                  </div>
-                  <p class="text-xs text-[var(--text-secondary)] mt-0.5">
-                    CILSA
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex items-start gap-2.5">
-                <span class="cv-dot"></span>
-                <div class="flex-1">
-                  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 class="font-bold text-xs sm:text-[13px] text-[var(--text-main)] uppercase">
-                      ABOGACIA
-                    </h3>
-                    <span class="text-xs text-[var(--text-muted)] font-medium">2012- 2017</span>
-                  </div>
-                  <p class="text-xs text-[var(--text-secondary)] mt-0.5">
-                    Universidad Católica Argentina
-                  </p>
-                </div>
-              </div>
-
-            </div>
-          </section>
-
-          <!-- EXPERIENCIA -->
-          <section class="break-avoid">
-            <h2 class="cv-section-title">Experiencia</h2>
-            <div class="space-y-4">
-              
-              <!-- AXOFT -->
-              <div class="flex items-start gap-2.5">
-                <span class="cv-dot"></span>
-                <div class="flex-1">
-                  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 class="font-bold text-xs sm:text-[13px] text-[var(--text-main)]">
-                      Desarrolladora C# .NET
-                    </h3>
-                    <span class="text-xs text-[var(--text-muted)] font-medium">2025 - Actualidad</span>
-                  </div>
-                  <p class="text-xs font-semibold text-[var(--text-secondary)] mb-1">
-                    Axoft Argentina
-                  </p>
-                  <p class="text-xs sm:text-[13px] text-[var(--text-secondary)] leading-relaxed">
-                    • Desarrollar y mantener de aplicaciones empresariales utilizando C# y .NET. Participar en implementación de nuevas funcionalidades, corrección de bugs y trabajo en equipo.
-                  </p>
-                </div>
-              </div>
-
-              <!-- DA VINCI -->
-              <div class="flex items-start gap-2.5">
-                <span class="cv-dot"></span>
-                <div class="flex-1">
-                  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 class="font-bold text-xs sm:text-[13px] text-[var(--text-main)]">
-                      Docente Desarrollo Web
-                    </h3>
-                    <span class="text-xs text-[var(--text-muted)] font-medium">2024 - Actualidad</span>
-                  </div>
-                  <p class="text-xs font-semibold text-[var(--text-secondary)] mb-1">
-                    Escuela de Arte Multimedial Da Vinci
-                  </p>
-                  <p class="text-xs sm:text-[13px] text-[var(--text-secondary)] leading-relaxed">
-                    • Instruir en programación de desarrollo web (HTML-CSS-Javascript-Bootstrap)
-                  </p>
-                </div>
-              </div>
-
-              <!-- FREELANCE -->
-              <div class="flex items-start gap-2.5">
-                <span class="cv-dot"></span>
-                <div class="flex-1">
-                  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 class="font-bold text-xs sm:text-[13px] text-[var(--text-main)]">
-                      Web Developer
-                    </h3>
-                    <span class="text-xs text-[var(--text-muted)] font-medium">2024 - 2025</span>
-                  </div>
-                  <p class="text-xs font-semibold text-[var(--text-secondary)] mb-1">
-                    Freelance
-                  </p>
-                  <div class="text-xs sm:text-[13px] text-[var(--text-secondary)] leading-relaxed">
-                    <p class="mb-0.5">Desarrollo de sitios web adaptables:</p>
-                    <ul class="space-y-0.5 pl-3">
-                      <li>• Entender necesidades del cliente y del público objetivo.</li>
-                      <li>• Crear diseños que se ajusten a diferentes dispositivos.</li>
-                      <li>• Analizar requerimientos de los clientes y proveer informes.</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <!-- DHL -->
-              <div class="flex items-start gap-2.5">
-                <span class="cv-dot"></span>
-                <div class="flex-1">
-                  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 class="font-bold text-xs sm:text-[13px] text-[var(--text-main)]">
-                      Legal Tech Counsel
-                    </h3>
-                    <span class="text-xs text-[var(--text-muted)] font-medium">2018- 2023</span>
-                  </div>
-                  <p class="text-xs font-semibold text-[var(--text-secondary)] mb-1">
-                    DHL Express
-                  </p>
-                  <ul class="space-y-0.5 text-xs sm:text-[13px] text-[var(--text-secondary)] leading-relaxed">
-                    <li>• Asesorar legalmente de manera completa y colaborativa entre departamentos. Elaborar y revisar contratos comerciales.</li>
-                    <li>• Desarrollar de automatizaciones de procesos internos utilizando Power Platform, actuando como nexo técnico entre las necesidades del área legal y la implementación de software.</li>
-                  </ul>
-                </div>
-              </div>
-
-              <!-- TROCCOLI -->
-              <div class="flex items-start gap-2.5">
-                <span class="cv-dot"></span>
-                <div class="flex-1">
-                  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 class="font-bold text-xs sm:text-[13px] text-[var(--text-main)]">
-                      Legal Counsel Junior
-                    </h3>
-                    <span class="text-xs text-[var(--text-muted)] font-medium">2016- 2017</span>
-                  </div>
-                  <p class="text-xs font-semibold text-[var(--text-secondary)] mb-1">
-                    Estudio Juridico Troccoli
-                  </p>
-                  <ul class="space-y-0.5 text-xs sm:text-[13px] text-[var(--text-secondary)] leading-relaxed">
-                    <li>• Analizar jurídicamente consultas a clientes</li>
-                    <li>• Supervisar, controlar y seguir casos</li>
-                  </ul>
-                </div>
-              </div>
-
-              <!-- BIOETICA -->
-              <div class="flex items-start gap-2.5">
-                <span class="cv-dot"></span>
-                <div class="flex-1">
-                  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <h3 class="font-bold text-xs sm:text-[13px] text-[var(--text-main)]">
-                      Auxiliar de investigación
-                    </h3>
-                    <span class="text-xs text-[var(--text-muted)] font-medium">2015- 2017</span>
-                  </div>
-                  <p class="text-xs font-semibold text-[var(--text-secondary)] mb-1">
-                    Centro de Bioética, Persona y Familia
-                  </p>
-                  <ul class="space-y-0.5 text-xs sm:text-[13px] text-[var(--text-secondary)] leading-relaxed">
-                    <li>• Investigar la normativa jurídica aplicada en bioética.</li>
-                    <li>• Analizar las consecuencias ético-jurídicas del desarrollo de nuevas biotecnologías.</li>
-                  </ul>
-                </div>
-              </div>
-
-            </div>
-          </section>
-
-          <!-- TECNOLOGIAS -->
-          <section class="break-avoid">
-            <h2 class="cv-section-title">Tecnologias</h2>
-            <div class="space-y-2 text-xs sm:text-[13px] text-[var(--text-secondary)]">
-              <p>
-                <strong class="text-[var(--text-main)] font-semibold">Lenguajes y Frameworks:</strong> C#, .NET, JavaScript, SQL, HTML, CSS, Bootstrap, Swift, SwiftUI
-              </p>
-              <p>
-                <strong class="text-[var(--text-main)] font-semibold">Herramientas:</strong> Git, GitHub, Power Automate, Jira, Azure DevOps, Xcode.
-              </p>
-            </div>
-          </section>
-
+        <!-- ACTION BUTTONS -->
+        <div class="flex flex-wrap items-center gap-3.5">
+          <a href={url('/cv')} class="btn py-3 px-6 shadow-sm">
+            <span>📄</span>
+            <span>Ver Curriculum Vitae (PDF)</span>
+          </a>
+          <a href="#proyectos" class="btn btn-outline py-3 px-5">
+            <span>Explorar Proyectos ↓</span>
+          </a>
+          <a href={`mailto:${cvData.email}`} class="btn btn-outline py-3 px-5">
+            <span>✉ Contactar</span>
+          </a>
         </div>
 
       </div>
 
-    </main>
+      <!-- HERO PHOTO CARD (5 COLS) -->
+      <div class="lg:col-span-5 flex justify-center lg:justify-end">
+        <div class="card p-6 sm:p-7 w-full max-w-sm border border-[var(--border-color)] bg-[var(--bg-surface)] text-center relative group">
+          
+          <div class="relative inline-block mb-4">
+            <img 
+              src={url(cvData.photo)} 
+              alt={cvData.name} 
+              class="w-36 h-36 sm:w-40 sm:h-40 rounded-full mx-auto object-cover border-4 border-[var(--border-subtle)] shadow-md group-hover:scale-102 transition-transform duration-300"
+            />
+            <span class="absolute bottom-2 right-2 w-5 h-5 rounded-full bg-emerald-500 border-3 border-[var(--bg-surface)] shadow-xs"></span>
+          </div>
 
-    <footer class="no-print max-w-[960px] mx-auto mt-6 text-center text-xs text-[var(--text-muted)]">
-      <p>{cvData.name} © {currentYear} • Curriculum Vitae Digital</p>
-    </footer>
+          <h2 class="text-xl font-bold text-[var(--text-primary)] mb-1">
+            {cvData.name}
+          </h2>
+          <p class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">
+            {cvData.title}
+          </p>
 
-    <!-- THEME TOGGLE SCRIPT -->
-    <script>
-      const themeBtn = document.getElementById('theme-btn');
-      const themeIcon = document.getElementById('theme-icon');
+          <div class="flex flex-wrap justify-center gap-1.5 pt-4 border-t border-[var(--border-color)] text-xs">
+            <span class="badge badge-blue">C# .NET</span>
+            <span class="badge">iOS SwiftUI</span>
+            <span class="badge">LegalTech</span>
+            <span class="badge">MeT</span>
+          </div>
+        </div>
+      </div>
 
-      function updateTheme() {
-        const current = document.documentElement.getAttribute('data-theme') || 'light';
-        if (themeIcon) {
-          themeIcon.textContent = current === 'dark' ? '☼' : '◐';
-        }
-      }
+    </div>
+  </section>
 
-      updateTheme();
+  <!-- ESPECIALIDADES / ENFOQUE DUAL -->
+  <section id="sobre-mi" class="py-14 border-t border-[var(--border-color)]">
+    <div class="section-header text-center max-w-xl mx-auto mb-10">
+      <span class="section-tag">Perfil Multidisciplinario</span>
+      <h2 class="text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
+        Sinergia Técnica, Académica y Comunitaria
+      </h2>
+    </div>
 
-      themeBtn?.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('data-theme') || 'light';
-        const next = current === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-        updateTheme();
-      });
-    </script>
-  </body>
-</html>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <div class="card card-hover p-7 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-5 border border-blue-100 dark:border-blue-900/50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2">
+            Backend &amp; C# .NET
+          </h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">
+            Mantenimiento y desarrollo de lógica empresarial en Axoft Argentina. Optimización de bases de datos SQL y arquitectura limpia con principios SOLID.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-4 border-t border-[var(--border-color)]">
+          <span class="badge text-xs">C#</span>
+          <span class="badge text-xs">.NET Core</span>
+          <span class="badge text-xs">SQL Server</span>
+        </div>
+      </div>
+
+      <div class="card card-hover p-7 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-5 border border-indigo-100 dark:border-indigo-900/50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2">
+            Mobile iOS (Swift)
+          </h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">
+            Desarrollo mobile nativo en iOS utilizando Swift y SwiftUI. Arquitectura MVVM, gestión de estado reactivo y consumo de APIs REST.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-4 border-t border-[var(--border-color)]">
+          <span class="badge text-xs">Swift</span>
+          <span class="badge text-xs">SwiftUI</span>
+          <span class="badge text-xs">Xcode</span>
+        </div>
+      </div>
+
+      <div class="card card-hover p-7 flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-5 border border-emerald-100 dark:border-emerald-900/50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-[var(--text-primary)] mb-2">
+            LegalTech &amp; Docencia
+          </h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">
+            Abogada (UCA), automatización en DHL Express, docente de desarrollo web en Escuela Da Vinci y voluntaria en Mujeres en Tecnología (MeT).
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-4 border-t border-[var(--border-color)]">
+          <span class="badge text-xs">Power Platform</span>
+          <span class="badge text-xs">Docencia Web</span>
+          <span class="badge text-xs">MeT</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCIA LABORAL -->
+  <section id="experiencia" class="py-14 border-t border-[var(--border-color)]">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+      <div>
+        <span class="section-tag">Trayectoria Profesional</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
+          Experiencia Laboral
+        </h2>
+      </div>
+      <a href={url('/cv')} class="btn btn-outline btn-sm text-xs">
+        <span>📄</span>
+        <span>Ver formato CV completo</span>
+      </a>
+    </div>
+
+    <div class="card p-6 sm:p-9">
+      <div class="space-y-6">
+        {cvData.experience.map(exp => (
+          <ExperienceCard item={exp} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS DESTACADOS -->
+  <section id="proyectos" class="py-14 border-t border-[var(--border-color)]">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+      <div>
+        <span class="section-tag">Código &amp; Repositorios</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
+          Proyectos Destacados
+        </h2>
+      </div>
+      <a 
+        href={cvData.github} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="text-xs font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] inline-flex items-center gap-1.5"
+      >
+        <span>Ver todos en GitHub (@{cvData.githubUsername})</span>
+        <span>↗</span>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {cvData.projects.map(project => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  </section>
+
+  <!-- STACK & SKILLS -->
+  <section id="skills" class="py-14 border-t border-[var(--border-color)]">
+    <div class="section-header text-center max-w-xl mx-auto mb-10">
+      <span class="section-tag">Habilidades &amp; Herramientas</span>
+      <h2 class="text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
+        Tecnologías &amp; Metodologías
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <div class="card p-6">
+        <h3 class="text-base font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <span>💻</span>
+          <span>Lenguajes &amp; Frameworks</span>
+        </h3>
+        <div class="flex flex-wrap gap-1.5">
+          {cvData.technologies.languagesAndFrameworks.map(t => (
+            <span class="badge text-xs">{t}</span>
+          ))}
+        </div>
+      </div>
+
+      <div class="card p-6">
+        <h3 class="text-base font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <span>🛠️</span>
+          <span>Herramientas &amp; Plataformas</span>
+        </h3>
+        <div class="flex flex-wrap gap-1.5">
+          {cvData.technologies.tools.map(t => (
+            <span class="badge text-xs">{t}</span>
+          ))}
+        </div>
+      </div>
+
+      <div class="card p-6">
+        <h3 class="text-base font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <span>🤝</span>
+          <span>Gestión &amp; Metodologías</span>
+        </h3>
+        <div class="flex flex-wrap gap-1.5">
+          {cvData.softSkills.map(s => (
+            <span class="badge text-xs">{s}</span>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCACIÓN & VOLUNTARIADO -->
+  <section id="educacion" class="py-14 border-t border-[var(--border-color)]">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- EDUCACIÓN (7 COLS) -->
+      <div class="lg:col-span-7">
+        <div class="section-header mb-6">
+          <span class="section-tag">Formación Académica</span>
+          <h2 class="text-2xl font-bold text-[var(--text-primary)]">
+            Educación &amp; Cursos
+          </h2>
+        </div>
+        <div class="card p-6 sm:p-8">
+          <div class="space-y-3">
+            {cvData.education.map(edu => (
+              <EducationCard item={edu} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- VOLUNTARIADO (5 COLS) -->
+      <div class="lg:col-span-5">
+        <div class="section-header mb-6">
+          <span class="section-tag">Comunidad</span>
+          <h2 class="text-2xl font-bold text-[var(--text-primary)]">
+            Voluntariado
+          </h2>
+        </div>
+        <div class="card p-6 sm:p-8">
+          {cvData.volunteering.map(v => (
+            <div>
+              <div class="flex items-baseline justify-between gap-2 mb-2">
+                <h3 class="text-base font-bold text-[var(--text-primary)]">{v.organization}</h3>
+                <span class="badge text-xs">{v.period}</span>
+              </div>
+              <p class="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+                {v.description}
+              </p>
+              <div class="pt-3 border-t border-[var(--border-color)] text-xs text-[var(--text-muted)]">
+                Rol: <strong class="text-[var(--text-primary)]">{v.role}</strong>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACTO BANNER -->
+  <section class="py-16 my-8 rounded-2xl bg-gradient-to-br from-[var(--bg-surface)] to-[var(--bg-muted)] border border-[var(--border-color)] text-center p-8 sm:p-12 shadow-sm">
+    <span class="section-tag mb-2">Contacto</span>
+    <h2 class="text-2xl sm:text-3xl font-bold text-[var(--text-primary)] mb-3">
+      ¿Tienes un proyecto, propuesta o consulta?
+    </h2>
+    <p class="text-base text-[var(--text-secondary)] max-w-lg mx-auto mb-8">
+      Abierta a oportunidades en desarrollo backend (.NET / C#), desarrollo mobile (iOS / Swift), docencia tecnológica y LegalTech.
+    </p>
+    <div class="flex flex-wrap justify-center items-center gap-3">
+      <a href={`mailto:${cvData.email}`} class="btn py-3 px-6 shadow-sm">
+        <span>✉</span>
+        <span>Enviar correo ({cvData.email})</span>
+      </a>
+      <a href={cvData.linkedin} target="_blank" rel="noopener noreferrer" class="btn btn-outline py-3 px-6">
+        <span>in Conectar en LinkedIn</span>
+      </a>
+    </div>
+  </section>
+</Layout>
