@@ -10,34 +10,34 @@ const { currentPath = '' } = Astro.props;
 ---
 
 <header class="navbar no-print sticky top-0 z-50 backdrop-blur-md bg-[var(--bg-primary)]/90 border-b border-[var(--border-color)] transition-colors duration-200">
-  <div class="container flex items-center justify-between py-3.5 flex-wrap gap-4">
+  <div class="container flex items-center justify-between py-4 flex-wrap gap-4">
     <!-- BRAND / LOGO -->
-    <a href={url('/')} class="flex items-center gap-2 group text-[var(--text-primary)] no-underline">
-      <span class="font-mono text-sm font-bold tracking-tight py-1 px-2 rounded bg-[var(--bg-muted)] border border-[var(--border-color)] group-hover:border-[var(--text-primary)] transition-colors">
+    <a href={url('/')} class="flex items-center gap-2.5 group text-[var(--text-primary)] no-underline">
+      <span class="font-mono text-xs sm:text-sm font-bold tracking-tight py-1 px-2.5 rounded bg-[var(--bg-muted)] border border-[var(--border-color)] group-hover:border-[var(--text-primary)] transition-colors">
         &gt; lbyache.
       </span>
-      <span class="font-sans font-semibold text-sm hidden sm:inline text-[var(--text-secondary)]">
+      <span class="font-sans font-bold text-sm hidden sm:inline text-[var(--text-primary)]">
         {cvData.name}
       </span>
     </a>
 
-    <!-- NAV LINKS -->
-    <nav class="flex items-center gap-1 sm:gap-2">
+    <!-- NAV PILL LINKS -->
+    <nav class="flex items-center gap-1.5 sm:gap-2 bg-[var(--bg-surface)] p-1 rounded-full border border-[var(--border-color)] shadow-sm">
       <a 
         href={url('/')} 
-        class={`font-mono text-xs font-medium px-2.5 py-1.5 rounded transition-colors ${currentPath === '/' ? 'bg-[var(--text-primary)] text-[var(--bg-primary)]!' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)]'}`}
+        class={`font-mono text-xs font-semibold px-3 py-1.5 rounded-full transition-all ${currentPath === '/' || currentPath === '/portfolio-cv/' || currentPath === '/portfolio-cv' ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] shadow-sm' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)]'}`}
       >
         [INICIO]
       </a>
       <a 
         href={url('/cv')} 
-        class={`font-mono text-xs font-medium px-2.5 py-1.5 rounded transition-colors ${currentPath === '/cv' ? 'bg-[var(--text-primary)] text-[var(--bg-primary)]!' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)]'}`}
+        class={`font-mono text-xs font-semibold px-3 py-1.5 rounded-full transition-all ${currentPath?.includes('/cv') ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] shadow-sm' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)]'}`}
       >
         [CV_PDF]
       </a>
       <a 
         href={url('/blog')} 
-        class={`font-mono text-xs font-medium px-2.5 py-1.5 rounded transition-colors ${currentPath?.startsWith('/blog') ? 'bg-[var(--text-primary)] text-[var(--bg-primary)]!' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)]'}`}
+        class={`font-mono text-xs font-semibold px-3 py-1.5 rounded-full transition-all ${currentPath?.includes('/blog') ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] shadow-sm' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)]'}`}
       >
         [BLOG]
       </a>
@@ -45,17 +45,17 @@ const { currentPath = '' } = Astro.props;
         href={cvData.github} 
         target="_blank" 
         rel="noopener noreferrer" 
-        class="font-mono text-xs font-medium px-2.5 py-1.5 rounded text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)] transition-colors hidden md:inline-flex items-center gap-1"
+        class="font-mono text-xs font-semibold px-3 py-1.5 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-muted)] transition-all hidden md:inline-flex items-center gap-1"
       >
         GitHub ↗
       </a>
     </nav>
 
     <!-- RIGHT CONTROLS: THEME TOGGLE & CONTACT -->
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2.5">
       <button 
         id="theme-toggle-btn" 
-        class="btn btn-outline btn-sm font-mono text-xs" 
+        class="btn btn-outline btn-sm font-mono text-xs py-1.5 px-3 rounded-full cursor-pointer" 
         aria-label="Cambiar tema claro / oscuro"
       >
         <span id="theme-icon" class="mr-1">◐</span>
@@ -64,7 +64,7 @@ const { currentPath = '' } = Astro.props;
 
       <a 
         href={`mailto:${cvData.email}`} 
-        class="btn btn-sm hidden sm:inline-flex items-center gap-1.5"
+        class="btn btn-sm hidden sm:inline-flex items-center gap-1.5 rounded-full py-1.5 px-4"
       >
         <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
         <span>Contacto</span>
