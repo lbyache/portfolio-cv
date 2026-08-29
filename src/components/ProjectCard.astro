@@ -8,17 +8,17 @@ interface Props {
 const { project } = Astro.props;
 ---
 
-<article class="card card-hover flex flex-col justify-between h-full p-6 sm:p-8 group">
+<article class="card card-hover flex flex-col justify-between h-full p-6 sm:p-7 group">
   <div>
-    <div class="flex items-center justify-between gap-3 mb-4">
-      <span class="badge text-xs font-bold px-3 py-1">
+    <div class="flex items-center justify-between gap-3 mb-3">
+      <span class="badge text-xs font-semibold">
         {project.category}
       </span>
       <a 
         href={project.github} 
         target="_blank" 
         rel="noopener noreferrer" 
-        class="font-mono text-xs font-semibold text-[var(--text-muted)] group-hover:text-[var(--text-primary)] transition-colors inline-flex items-center gap-1.5"
+        class="text-xs font-semibold text-[var(--text-muted)] group-hover:text-[var(--text-primary)] transition-colors inline-flex items-center gap-1"
         title="Ver repositorio en GitHub"
       >
         <span>GitHub</span>
@@ -26,21 +26,21 @@ const { project } = Astro.props;
       </a>
     </div>
 
-    <h3 class="font-serif font-bold text-2xl text-[var(--text-primary)] mb-3 group-hover:underline decoration-1 underline-offset-4">
+    <h3 class="font-sans font-bold text-xl text-[var(--text-primary)] mb-2.5 group-hover:underline decoration-1 underline-offset-4">
       <a href={project.github} target="_blank" rel="noopener noreferrer" class="text-inherit no-underline">
         {project.title}
       </a>
     </h3>
 
-    <p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed mb-6">
+    <p class="text-sm text-[var(--text-secondary)] leading-relaxed mb-5">
       {project.description}
     </p>
   </div>
 
   <div>
-    <div class="flex flex-wrap gap-2 pt-4 border-t border-[var(--border-color)]">
+    <div class="flex flex-wrap gap-1.5 pt-4 border-t border-[var(--border-color)]">
       {project.tech.map((t) => (
-        <span class="font-mono text-xs font-medium px-2.5 py-1 rounded bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-color)]">
+        <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-[var(--bg-muted)] text-[var(--text-secondary)] border border-[var(--border-color)]">
           {t}
         </span>
       ))}

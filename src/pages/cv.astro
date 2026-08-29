@@ -11,71 +11,71 @@ import EducationCard from '../components/EducationCard.astro';
   description={`Currículum Vitae oficial de ${cvData.name}. Perfil dual en Desarrollo de Software (.NET, C#, iOS) y Análisis de Sistemas / LegalTech.`}
 >
   <!-- TOP TOOLBAR (NO-PRINT) -->
-  <div class="no-print mb-10 p-5 sm:p-6 rounded-xl border border-[var(--border-color)] bg-[var(--bg-surface)] flex flex-col md:flex-row justify-between items-start md:items-center gap-5 shadow-sm">
+  <div class="no-print mb-8 p-4 sm:p-5 rounded-xl border border-[var(--border-color)] bg-[var(--bg-surface)] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-sm">
     <div>
-      <div class="flex items-center gap-2.5">
-        <h1 class="font-mono text-base sm:text-lg font-bold text-[var(--text-primary)]">&gt; curriculum_vitae.pdf</h1>
-        <span class="badge text-xs">A4 Imprimible &amp; ATS-Friendly</span>
+      <div class="flex items-center gap-2">
+        <h1 class="text-base sm:text-lg font-bold text-[var(--text-primary)]">Curriculum Vitae</h1>
+        <span class="badge text-xs">Formato Oficial A4 &amp; ATS</span>
       </div>
-      <p class="text-xs sm:text-sm text-[var(--text-secondary)] mt-1.5 max-w-xl">
-        Formato ejecutivo estructurado. Haz clic en <strong>Imprimir / Guardar PDF</strong> para exportar una copia limpia sin elementos de navegación.
+      <p class="text-xs sm:text-sm text-[var(--text-secondary)] mt-1">
+        Vista estructurada del CV. Haz clic en <strong>Imprimir / Guardar en PDF</strong> para descargar una copia limpia.
       </p>
     </div>
 
-    <div class="flex flex-wrap gap-3 items-center">
+    <div class="flex flex-wrap gap-2.5 items-center">
       <button 
         id="print-btn" 
-        class="btn text-xs sm:text-sm py-2.5 px-5 cursor-pointer"
+        class="btn text-xs sm:text-sm py-2 px-4 shadow-sm cursor-pointer"
         onclick="window.print()"
       >
-        <span>🖨️</span>
+        <span>📄</span>
         <span>Imprimir / Guardar PDF</span>
       </button>
 
       <a 
         href={url('/')} 
-        class="btn btn-outline text-xs sm:text-sm py-2.5 px-4"
+        class="btn btn-outline text-xs sm:text-sm py-2 px-4"
       >
         ← Volver al Inicio
       </a>
     </div>
   </div>
 
-  <!-- PRINTABLE CV DOCUMENT (EXPANDED EXECUTIVE A4 LAYOUT) -->
-  <div class="cv-printable-container bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-2xl p-8 sm:p-12 lg:p-14 shadow-md transition-colors">
+  <!-- PRINTABLE CV DOCUMENT WRAPPER -->
+  <div class="cv-printable-container bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-2xl p-6 sm:p-10 lg:p-12 shadow-sm transition-colors">
     
-    <!-- HEADER BAR: AVATAR, NAME, TITLE & CONTACT -->
-    <header class="border-b-2 border-[var(--text-primary)] pb-8 mb-10">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-8">
+    <!-- HEADER: AVATAR, NAME, TITLE & CONTACT -->
+    <header class="border-b border-[var(--border-color)] pb-8 mb-8">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
         
-        <div class="flex items-center gap-6">
+        <div class="flex items-center gap-5">
           <img 
             src={url(cvData.photo)} 
             alt={cvData.name} 
-            class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-3 border-[var(--border-color)] shadow-sm shrink-0"
+            class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-[var(--border-color)] shadow-sm shrink-0"
           />
           <div>
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-extrabold text-[var(--text-primary)] tracking-tight leading-tight">
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[var(--text-primary)] tracking-tight">
               {cvData.name}
             </h1>
-            <p class="font-mono text-xs sm:text-sm font-bold tracking-widest text-[var(--text-muted)] uppercase mt-2">
+            <p class="text-xs sm:text-sm font-semibold text-[var(--text-muted)] uppercase tracking-wider mt-1">
               {cvData.title}
             </p>
           </div>
         </div>
 
-        <!-- CONTACT QUICK BADGES -->
-        <div class="font-mono text-xs text-[var(--text-secondary)] flex flex-col sm:items-end gap-2 shrink-0">
+        <!-- CONTACT DETAILS -->
+        <div class="text-xs sm:text-sm text-[var(--text-secondary)] flex flex-col sm:items-end gap-1.5 shrink-0">
           <a href={`mailto:${cvData.email}`} class="hover:text-[var(--text-primary)] flex items-center gap-1.5">
-            <span class="text-[var(--text-muted)]">✉</span>
-            <span class="font-semibold">{cvData.email}</span>
+            <span>✉</span>
+            <span class="font-medium">{cvData.email}</span>
           </a>
           <a href={cvData.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-[var(--text-primary)] flex items-center gap-1.5">
-            <span class="text-[var(--text-muted)]">in</span>
+            <span>in</span>
             <span>linkedin.com/in/laurayachelini</span>
           </a>
           <a href={cvData.github} target="_blank" rel="noopener noreferrer" class="hover:text-[var(--text-primary)] flex items-center gap-1.5">
-            <span class="text-[var(--text-muted)]">git</span>
+            <span>git</span>
             <span>github.com/{cvData.githubUsername}</span>
           </a>
           <div class="flex items-center gap-1.5 text-[var(--text-muted)]">
@@ -87,38 +87,37 @@ import EducationCard from '../components/EducationCard.astro';
       </div>
     </header>
 
-    <!-- EXECUTIVE SUMMARY BANNER -->
-    <section class="break-avoid mb-12 p-6 sm:p-7 rounded-xl bg-[var(--bg-muted)] border border-[var(--border-color)]">
-      <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] mb-2.5 flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-[var(--text-primary)]"></span>
+    <!-- EXECUTIVE SUMMARY -->
+    <section class="break-avoid mb-8 p-5 sm:p-6 rounded-xl bg-[var(--bg-muted)] border border-[var(--border-color)]">
+      <h2 class="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] mb-2 flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-blue-600"></span>
         <span>Perfil &amp; Resumen Profesional</span>
       </h2>
-      <p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed font-sans">
+      <p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
         {cvData.summary}
       </p>
     </section>
 
-    <!-- TWO-COLUMN BALANCED GRID -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+    <!-- TWO-COLUMN BALANCED LAYOUT -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
       
-      <!-- LEFT SIDEBAR (5 COLS): HABILIDADES, TECNOLOGÍAS, VOLUNTARIADO -->
-      <aside class="lg:col-span-5 flex flex-col gap-10">
+      <!-- LEFT COLUMN (5 COLS) -->
+      <aside class="lg:col-span-5 flex flex-col gap-8">
         
-        <!-- TECNOLOGÍAS & STACK -->
+        <!-- TECNOLOGÍAS -->
         <section class="break-avoid">
-          <h2 class="text-lg sm:text-xl font-serif font-bold text-[var(--text-primary)] border-b border-[var(--border-color)] pb-2.5 mb-5 flex items-center justify-between">
-            <span>Tecnologías &amp; Herramientas</span>
-            <span class="font-mono text-xs text-[var(--text-muted)] font-normal">// Stack</span>
+          <h2 class="text-base sm:text-lg font-bold text-[var(--text-primary)] border-b border-[var(--border-color)] pb-2 mb-4">
+            Tecnologías &amp; Herramientas
           </h2>
 
-          <div class="space-y-5">
+          <div class="space-y-4">
             <div>
-              <h3 class="font-mono text-xs font-bold text-[var(--text-muted)] uppercase mb-2.5">
+              <h3 class="text-xs font-bold text-[var(--text-muted)] uppercase mb-2">
                 Lenguajes y Frameworks:
               </h3>
-              <div class="flex flex-wrap gap-2">
+              <div class="flex flex-wrap gap-1.5">
                 {cvData.technologies.languagesAndFrameworks.map((tech) => (
-                  <span class="font-mono text-xs px-3 py-1 rounded bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-color)] font-medium">
+                  <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-color)]">
                     {tech}
                   </span>
                 ))}
@@ -126,12 +125,12 @@ import EducationCard from '../components/EducationCard.astro';
             </div>
 
             <div>
-              <h3 class="font-mono text-xs font-bold text-[var(--text-muted)] uppercase mb-2.5">
+              <h3 class="text-xs font-bold text-[var(--text-muted)] uppercase mb-2">
                 Herramientas y Plataformas:
               </h3>
-              <div class="flex flex-wrap gap-2">
+              <div class="flex flex-wrap gap-1.5">
                 {cvData.technologies.tools.map((tool) => (
-                  <span class="font-mono text-xs px-3 py-1 rounded bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-color)] font-medium">
+                  <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-color)]">
                     {tool}
                   </span>
                 ))}
@@ -139,12 +138,12 @@ import EducationCard from '../components/EducationCard.astro';
             </div>
 
             <div>
-              <h3 class="font-mono text-xs font-bold text-[var(--text-muted)] uppercase mb-2.5">
+              <h3 class="text-xs font-bold text-[var(--text-muted)] uppercase mb-2">
                 Arquitectura y Metodologías:
               </h3>
-              <div class="flex flex-wrap gap-2">
+              <div class="flex flex-wrap gap-1.5">
                 {cvData.technologies.other.map((item) => (
-                  <span class="font-mono text-xs px-3 py-1 rounded bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-color)] font-medium">
+                  <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-[var(--bg-muted)] text-[var(--text-primary)] border border-[var(--border-color)]">
                     {item}
                   </span>
                 ))}
@@ -153,17 +152,16 @@ import EducationCard from '../components/EducationCard.astro';
           </div>
         </section>
 
-        <!-- HABILIDADES BLANDAS & GESTIÓN -->
+        <!-- HABILIDADES BLANDAS -->
         <section class="break-avoid">
-          <h2 class="text-lg sm:text-xl font-serif font-bold text-[var(--text-primary)] border-b border-[var(--border-color)] pb-2.5 mb-5 flex items-center justify-between">
-            <span>Habilidades de Gestión</span>
-            <span class="font-mono text-xs text-[var(--text-muted)] font-normal">// Soft Skills</span>
+          <h2 class="text-base sm:text-lg font-bold text-[var(--text-primary)] border-b border-[var(--border-color)] pb-2 mb-4">
+            Habilidades de Gestión
           </h2>
-          <ul class="space-y-2.5 text-sm text-[var(--text-secondary)]">
+          <ul class="space-y-2 text-sm text-[var(--text-secondary)]">
             {cvData.softSkills.map((skill) => (
-              <li class="flex items-center gap-2.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-primary)] shrink-0"></span>
-                <span class="font-medium">{skill}</span>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0"></span>
+                <span>{skill}</span>
               </li>
             ))}
           </ul>
@@ -171,15 +169,14 @@ import EducationCard from '../components/EducationCard.astro';
 
         <!-- VOLUNTARIADO -->
         <section class="break-avoid">
-          <h2 class="text-lg sm:text-xl font-serif font-bold text-[var(--text-primary)] border-b border-[var(--border-color)] pb-2.5 mb-5 flex items-center justify-between">
-            <span>Voluntariado &amp; Comunidad</span>
-            <span class="font-mono text-xs text-[var(--text-muted)] font-normal">// MeT</span>
+          <h2 class="text-base sm:text-lg font-bold text-[var(--text-primary)] border-b border-[var(--border-color)] pb-2 mb-4">
+            Voluntariado &amp; Comunidad
           </h2>
           {cvData.volunteering.map((v) => (
             <div class="p-4 rounded-lg bg-[var(--bg-muted)] border border-[var(--border-color)]">
-              <div class="flex items-baseline justify-between gap-2 mb-1.5">
+              <div class="flex items-baseline justify-between gap-2 mb-1">
                 <strong class="text-sm font-bold text-[var(--text-primary)]">{v.organization}</strong>
-                <span class="font-mono text-xs font-semibold text-[var(--text-muted)]">{v.period}</span>
+                <span class="text-xs font-medium text-[var(--text-muted)]">{v.period}</span>
               </div>
               <p class="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
                 {v.description}
@@ -190,14 +187,13 @@ import EducationCard from '../components/EducationCard.astro';
 
       </aside>
 
-      <!-- RIGHT MAIN CONTENT (7 COLS): EXPERIENCIA & EDUCACIÓN -->
-      <main class="lg:col-span-7 flex flex-col gap-10">
+      <!-- RIGHT COLUMN (7 COLS): EXPERIENCIA & EDUCACIÓN -->
+      <main class="lg:col-span-7 flex flex-col gap-8">
         
-        <!-- EXPERIENCIA LABORAL SECTION -->
+        <!-- EXPERIENCIA LABORAL -->
         <section class="break-avoid">
-          <h2 class="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)] border-b-2 border-[var(--border-color)] pb-3 mb-7 flex items-center justify-between">
-            <span>Experiencia Laboral</span>
-            <span class="font-mono text-xs text-[var(--text-muted)] font-normal">// Trayectoria</span>
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)] border-b border-[var(--border-color)] pb-2.5 mb-5">
+            Experiencia Laboral
           </h2>
           <div class="space-y-1">
             {cvData.experience.map((exp) => (
@@ -206,11 +202,10 @@ import EducationCard from '../components/EducationCard.astro';
           </div>
         </section>
 
-        <!-- EDUCACIÓN SECTION -->
+        <!-- EDUCACIÓN -->
         <section class="break-avoid">
-          <h2 class="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)] border-b-2 border-[var(--border-color)] pb-3 mb-7 flex items-center justify-between">
-            <span>Educación &amp; Formación</span>
-            <span class="font-mono text-xs text-[var(--text-muted)] font-normal">// Académica</span>
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)] border-b border-[var(--border-color)] pb-2.5 mb-5">
+            Educación &amp; Formación
           </h2>
           <div class="space-y-2">
             {cvData.education.map((edu) => (
